@@ -25,7 +25,7 @@ PKG_CMAKE_OPTS_TARGET+=" -DMALI_ARCH=${INSTARCH}"
 PKG_MESON_OPTS_TARGET+=" -Darch=${TARGET_ARCH} \
                          -Dgpu=${MALI_FAMILY} \
                          -Dversion=${MALI_VERSION} \
-                         -Dplatform=gbm \
+                         -Dplatform=wayland \
                          -Dkhr-header=true"
 
 post_makeinstall_target() {
