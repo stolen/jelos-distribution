@@ -17,12 +17,20 @@ configure_package() {
     PKG_DEPENDS_TARGET+=" ${OPENGLES}"
   fi
 }
+
+RENDERERS=gles2
+if [ "${VULKAN_SUPPORT}" = "yes" ]
+then
+  PKG_DEPENDS_TARGET+=" vulkan-loader vulkan-headers"
+  RENDERERS+=",vulkan"
+fi
+
 # to enable xwayland package: https://gitlab.freedesktop.org/xorg/lib/libxcb-wm/-/tree/master/icccm?ref_type=heads
 PKG_MESON_OPTS_TARGET="-Dxcb-errors=disabled \
 					   -Dxwayland=enabled \
-                       -Dexamples=false \
-                       -Drenderers=gles2 \
-					   -Dbackends=drm,libinput"
+					   -Dexamples=false \
+					   -Drenderers=${RENDERERS} \
+					   -Dbackends=drm,libinput,auto"
 
 pre_configure_target() {
   # wlroots does not build without -Wno flags as all warnings being treated as errors
