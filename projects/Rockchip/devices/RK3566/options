@@ -51,20 +51,19 @@
     HW_CPU="Rockchip RK3566"
  
   # Mali GPU family
-    MALI_FAMILY="g52"
-    GRAPHIC_DRIVERS=""
+    MALI_FAMILY="bifrost-g52"
+    MALI_VERSION="g13p0"
+    OPENGLES="libmali-vulkan"
 
-  # OpenGL(X) implementation to use (mesa / no)
-    OPENGL="mesa"
-
-  # OpenGL-ES implementation to use (mesa / no)
-    OPENGLES="mesa"
+    OPENGL="gl4es"
+    GRAPHIC_DRIVERS="mali"
 
   # Vulkan implementation to use (vulkan-loader / no)
-    VULKAN="vulkan-loader"
+    VULKAN=""
 
   # VULKAN_SUPPORT
-    VULKAN_SUPPORT="yes"
+    VULKAN_SUPPORT="no"
+
 
   # Displayserver to use (weston / x11 / no)
     DISPLAYSERVER="wl"
@@ -108,7 +107,7 @@
     ENABLE_32BIT="false"
 
   # build and install bluetooth support (yes / no)
-    BLUETOOTH_SUPPORT="yes"
+    BLUETOOTH_SUPPORT="no"
 
   # build and install Avahi (Zeroconf) daemon (yes / no)
     AVAHI_DAEMON="no"
@@ -130,7 +129,7 @@
     WIREGUARD_SUPPORT="no"
 
   # build and install ZeroTier support (yes / no)
-    ZEROTIER_SUPPORT="yes"
+    ZEROTIER_SUPPORT="no"
 
   # build and install diskmounter support (udevil)
   # this service provide auto mounting support for external drives in the
@@ -154,7 +153,7 @@
     SWAP_SUPPORT="yes"
 
   # Some devices have internal storage.
-    INSTALLER_SUPPORT="yes"
+    INSTALLER_SUPPORT="no"
 
   # swap support enabled per default (yes / no)
     SWAP_ENABLED_DEFAULT="yes"

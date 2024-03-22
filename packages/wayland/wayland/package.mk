@@ -38,6 +38,10 @@ pre_configure_target() {
   export TARGET_CFLAGS=$(echo ${TARGET_CFLAGS} | sed -e "s|-DNDEBUG||g")
 }
 
+pre_install() {
+  rm -vf ${PKG_BUILD}/.install_pkg/usr/lib/libwayland-egl.so*
+}
+
 post_makeinstall_host() {
   cp ${TOOLCHAIN}/lib/pkgconfig/wayland-scanner.pc ${SYSROOT_PREFIX}/usr/lib/pkgconfig/
 }
