@@ -51,10 +51,8 @@
     HW_CPU="Rockchip RK3566"
  
   # Mali GPU family
-    MALI_FAMILY="bifrost-g52"
-  #  MALI_VERSION="g2p0"
-  #  OPENGLES="libmali"
-    VULKAN_SUPPORT=""
+    MALI_FAMILY="g52"
+    GRAPHIC_DRIVERS=""
 
   # OpenGL(X) implementation to use (mesa / no)
     OPENGL="mesa"
@@ -62,7 +60,6 @@
   # OpenGL-ES implementation to use (mesa / no)
     OPENGLES="mesa"
 
-    GRAPHIC_DRIVERS="panfrost"
 
   # Displayserver to use (weston / x11 / no)
     DISPLAYSERVER="wl"
@@ -82,7 +79,7 @@
   # additional Firmware to use ( )
   # Space separated list is supported,
   # e.g. FIRMWARE=""
-    FIRMWARE=""
+    FIRMWARE="libmali-vulkan"
 
   # Modules to install in initramfs for early boot
     INITRAMFS_MODULES=""
@@ -91,7 +88,7 @@
   # for a list of additional drivers see packages/linux-drivers
   # Space separated list is supported,
   # e.g. ADDITIONAL_DRIVERS="DRIVER1 DRIVER2"
-    ADDITIONAL_DRIVERS="jelos-gamepad"
+    ADDITIONAL_DRIVERS="jelos-gamepad mali-bifrost"
 
   # build and install driver addons (yes / no)
     DRIVER_ADDONS_SUPPORT="no"
