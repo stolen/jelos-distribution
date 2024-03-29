@@ -1,0 +1,23 @@
+--- wlroots-0c0bf0e06d53a1d105fb72eb45ef040c7a28a0e1/examples/embedded.c.orig	2024-03-29 18:42:48.413888551 +0300
++++ wlroots-0c0bf0e06d53a1d105fb72eb45ef040c7a28a0e1/examples/embedded.c	2024-03-29 18:42:53.489956511 +0300
+@@ -126,7 +126,8 @@
+ }
+ 
+ static void init_egl(struct wl_display *display) {
+-	egl_display = eglGetPlatformDisplay(EGL_PLATFORM_WAYLAND_KHR, display, NULL);
++	void *proc = (void *)eglGetProcAddress("eglGetPlatformDisplayEXT");
++	egl_display = ((EGLDisplay (*)(int, struct wl_display *, void*))proc)(EGL_PLATFORM_WAYLAND_KHR, display, NULL);
+ 	eglInitialize(egl_display, NULL, NULL);
+ 
+ 	EGLint matched = 0;
+@@ -180,7 +181,9 @@
+ 	xdg_toplevel_add_listener(xdg_toplevel, &xdg_toplevel_listener, NULL);
+ 
+ 	egl_window = wl_egl_window_create(main_surface, width, height);
+-	egl_surface = eglCreatePlatformWindowSurface(egl_display,
++
++	void *proc = (void *)eglGetProcAddress("eglCreatePlatformWindowSurfaceEXT");
++	egl_surface = ((struct wlr_egl_surface *(*)(EGLDisplay, EGLConfig, struct wl_egl_window *, void*))proc)(egl_display,
+ 		egl_config, egl_window, NULL);
+ 
+ 	struct wl_surface *child_surface = wl_compositor_create_surface(compositor);
