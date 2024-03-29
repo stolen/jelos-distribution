@@ -21,6 +21,13 @@ esac
 
 PKG_URL="https://gitlab.freedesktop.org/wayland/wayland/-/releases/${PKG_VERSION}/downloads/${PKG_NAME}-${PKG_VERSION}.tar.xz"
 
+# libmali has its own libwayland-egl, so do not build and install own one
+case ${OPENGLES} in
+  libmali*)
+    PKG_PATCH_DIRS+=" no-egl"
+    ;;
+esac
+
 PKG_MESON_OPTS_HOST="-Dlibraries=false \
                      -Dscanner=true \
                      -Dtests=false \
