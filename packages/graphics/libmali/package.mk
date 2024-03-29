@@ -6,13 +6,7 @@ PKG_NAME="libmali"
 PKG_ARCH="arm aarch64"
 PKG_LICENSE="nonfree"
 PKG_SITE="https://github.com/JustEnoughLinuxOS/libmali"
-PKG_URL="${PKG_SITE}.git"
-PKG_VERSION="0c1c1b8e3a687fd10df38935c4dff9ab90285a09"
-MALI_LIB_VERSION="1.9.0"
-GET_HANDLER_SUPPORT="git"
-PKG_DEPENDS_TARGET="toolchain libdrm"
-PKG_LONGDESC="OpenGL ES user-space binary for the ARM Mali GPU family"
-PKG_PATCH_DIRS+="${DEVICE}"
+PKG_VERSION="b9619b998cd9a019dacd6f5a4058c757ec0ed382"
 
 if [ "${TARGET_ARCH}" = "aarch64" ]; then
   INSTARCH="aarch64-linux-gnu"
@@ -20,20 +14,22 @@ elif [ "${TARGET_ARCH}" = "arm" ]; then
   INSTARCH="arm-linux-gnueabihf"
 fi
 
-PKG_CMAKE_OPTS_TARGET+=" -DMALI_ARCH=${INSTARCH}"
+PKG_URL="https://github.com/tsukumijima/libmali-rockchip/raw/${PKG_VERSION}/lib/${INSTARCH}/libmali-bifrost-${MALI_FAMILY}-${MALI_VERSION}-wayland-gbm.so"
+PKG_TOOLCHAIN="make"
+MALI_LIB_VERSION="1.9.0"
+PKG_DEPENDS_TARGET="toolchain libdrm"
 
-PKG_MESON_OPTS_TARGET+=" -Darch=${TARGET_ARCH} \
-                         -Dgpu=${MALI_FAMILY} \
-                         -Dversion=${MALI_VERSION} \
-                         -Dplatform=gbm \
-                         -Dkhr-header=true"
 
-post_makeinstall_target() {
-  for lib in libEGL.so.1 libgbm.so.1 libGLESv1_CM.so.1 libGLESv2.so.2 libMaliOpenCL.so.1
-  do
-    rm -f ${PKG_BUILD}/.install_pkg/usr/lib/${lib}
-    ln -s libmali.so.${MALI_LIB_VERSION} ${PKG_BUILD}/.install_pkg/usr/lib/${lib}
-    rm -f ${SYSROOT_PREFIX}/usr/lib/${lib}
-    ln -s libmali.so.${MALI_LIB_VERSION} ${SYSROOT_PREFIX}/usr/lib/${lib}
-  done
+if [ "${VULKAN_SUPPORT}" = "yes" ]; then
+  PKG_DEPENDS_TARGET+=" vulkan-tools"
+fi
+
+PKG_LONGDESC="OpenGL ES user-space binary for the ARM Mali GPU family"
+
+
+unpack() {
+  declare -p | grep -F 'sources'
+  echo "${PKG_NAME}" "${PKG_UNPACK_DIR}"
+  mkdir -p "${PKG_BUILD}"
+  cp "${SOURCES}/${PKG_NAME}/${PKG_SOURCE_NAME}" "${PKG_BUILD}/libmali.so.1"
 }
