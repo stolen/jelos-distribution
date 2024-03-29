@@ -15,7 +15,7 @@ PKG_DEPENDS_TARGET="toolchain squashfs-tools:host dosfstools:host fakeroot:host 
                     bash coreutils modules system-utils autostart quirks powerstate gnupg \
                     gzip six lynx xmlstarlet vim pyudev dialog dbus-python network jelos" 
 
-PKG_UI="emulationstation es-themes textviewer"
+PKG_UI="emulationstation es-themes"
 
 PKG_UI_TOOLS="fileman fbgrab"
 
@@ -23,11 +23,11 @@ PKG_GRAPHICS="imagemagick"
 
 PKG_FONTS="corefonts"
 
-PKG_MULTIMEDIA="ffmpeg vlc mpv gmu"
+PKG_MULTIMEDIA="" # "ffmpeg vlc mpv gmu"
 
 PKG_SOUND="espeak libao"
 
-PKG_SYNC="synctools"
+PKG_SYNC="" # "synctools"
 
 PKG_TOOLS="patchelf git ectool make i2c-tools evtest powertop"
 

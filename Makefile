@@ -47,7 +47,7 @@ S922X:
 	PROJECT=Amlogic DEVICE=S922X ARCH=aarch64 ./scripts/build_distro
 
 RK3566:
-	DEVICE_ROOT=RK3566 PROJECT=Rockchip DEVICE=RK3566 ARCH=arm ./scripts/build_distro
+	#DEVICE_ROOT=RK3566 PROJECT=Rockchip DEVICE=RK3566 ARCH=arm ./scripts/build_distro
 	DEVICE_ROOT=RK3566 PROJECT=Rockchip DEVICE=RK3566 ARCH=aarch64 ./scripts/build_distro
 
 RK3566-X55:
@@ -90,6 +90,9 @@ update:
 
 package:
 	./scripts/build ${PACKAGE}
+
+package_mt:
+	./scripts/build_mt ${PACKAGE}
 
 package-clean:
 	./scripts/clean ${PACKAGE}
