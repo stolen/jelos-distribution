@@ -52,20 +52,20 @@
  
   # Mali GPU family
     MALI_FAMILY="g52"
+    MALI_VERSION="g13p0"
     GRAPHIC_DRIVERS=""
 
   # OpenGL(X) implementation to use (mesa / no)
-    OPENGL="mesa"
+    OPENGL=""
 
   # OpenGL-ES implementation to use (mesa / no)
-    OPENGLES="mesa"
-
+    OPENGLES="libmali"
 
   # Displayserver to use (weston / x11 / no)
-    DISPLAYSERVER="wl"
+    DISPLAYSERVER="no"
 
   # Windowmanager to use (fluxbox / weston / no)
-    WINDOWMANAGER="swaywm-env"
+    WINDOWMANAGER="no"
 
   # debug tty path
     DEBUG_TTY="/dev/ttyS2"
@@ -79,7 +79,7 @@
   # additional Firmware to use ( )
   # Space separated list is supported,
   # e.g. FIRMWARE=""
-    FIRMWARE="libmali-vulkan"
+    FIRMWARE=""
 
   # Modules to install in initramfs for early boot
     INITRAMFS_MODULES=""
