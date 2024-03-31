@@ -51,7 +51,7 @@
     HW_CPU="Rockchip RK3566"
  
   # Mali GPU family
-    MALI_FAMILY="g52"
+    MALI_FAMILY="bifrost-g52"
     MALI_VERSION="g13p0"
     GRAPHIC_DRIVERS=""
 
@@ -62,10 +62,10 @@
     OPENGLES="libmali"
 
   # Displayserver to use (weston / x11 / no)
-    DISPLAYSERVER="no"
+    DISPLAYSERVER="wl"
 
   # Windowmanager to use (fluxbox / weston / no)
-    WINDOWMANAGER="no"
+    WINDOWMANAGER="weston11"
 
   # debug tty path
     DEBUG_TTY="/dev/ttyS2"
