@@ -6,7 +6,7 @@ PKG_NAME="libmali"
 PKG_ARCH="arm aarch64"
 PKG_LICENSE="nonfree"
 PKG_SITE="https://github.com/tsukumijima/libmali-rockchip"
-PKG_DEPENDS_TARGET="toolchain libdrm patchelf"
+PKG_DEPENDS_TARGET="toolchain libdrm patchelf:host"
 
 PKG_VERSION="v1.9-1-b9619b9"
 # zip format makes extract very fast (<1s). tgz takes 20 seconds to scan the whole file
@@ -31,7 +31,7 @@ esac
 
 PKG_BUILD_FLAGS="-strip"
 PKG_MESON_OPTS_TARGET+=" -Darch=${ARCH} -Dgpu=${MALI_FAMILY} -Dversion=${MALI_VERSION} -Dplatform=${PLATFORM} \
-					     -Dkhr-header=true -Dvendor-package=false -Dwrappers=enabled"
+					     -Dkhr-header=true -Dvendor-package=false -Dwrappers=disabled -Dhooks=true"
 
 
 unpack() {
@@ -45,7 +45,7 @@ unpack() {
   ln -s lib optimize_3
 }
 
-pre_makeinstall_target() {
-  readelf -Ws hook/libmali-hook.so | sed -nE 's|^.*GLOBAL DEFAULT *[0-9]+ *([a-z].*)$|\1 _\1|p' | sort -u > rename.syms
-  patchelf --rename-dynamic-symbols rename.syms --add-needed libmali-hook.so.1 libmali-prebuilt.so
+pre_make_target() {
+  patchelf --rename-dynamic-symbols "${PKG_BUILD}/rename.syms" --add-needed libmali-hook.so.1 libmali-prebuilt.so
 }
+

@@ -56,10 +56,14 @@ if cc.has_function('eglCreateContext', dependencies : mali)
   endif
 endif
 
+vflag = '-Wl,--export-dynamic'
+
 libhook = shared_library(
   'mali-hook',
   'hook.c',
   c_args : libhook_cflags,
+  link_args : [vflag, '-L.', '-lmali-prebuilt'],
+  link_depends : mapfile,
   include_directories : libhook_inc,
   dependencies : libhook_dep,
   install : true,
@@ -67,4 +71,3 @@ libhook = shared_library(
   version : mali_version)
 
 libhook_ldflags = ['-L${libdir}', '-lmali-hook']
-

@@ -1,0 +1,6 @@
+V1_9_0 {
+  global:
+    eglGetDisplay;
+  local:
+    *;
+};
