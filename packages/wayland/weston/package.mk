@@ -6,8 +6,9 @@ PKG_VERSION="13.0.0"
 
 PKG_LICENSE="MIT"
 PKG_SITE="https://wayland.freedesktop.org/"
-PKG_URL="https://gitlab.freedesktop.org/wayland/weston/-/archive/${PKG_VERSION}/${PKG_NAME}-${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="toolchain wayland wayland-protocols libdrm libxkbcommon libxcb-cursor libinput cairo pango libjpeg-turbo dbus seatd glu ${OPENGL} libX11 xwayland libXcursor xkbcomp setxkbmap cairo xterm libwebp"
+#PKG_URL="https://gitlab.freedesktop.org/wayland/weston/-/archive/${PKG_VERSION}/${PKG_NAME}-${PKG_VERSION}.tar.gz"
+PKG_URL="https://github.com/JeffyCN/weston/archive/fbbf0e9edd59df31b33f52cedc0ee2516f38022f.zip"
+PKG_DEPENDS_TARGET="toolchain wayland wayland-protocols libdrm libxkbcommon libxcb-cursor libinput cairo pango libjpeg-turbo dbus seatd libX11 xwayland libXcursor xkbcomp setxkbmap cairo xterm libwebp"
 PKG_LONGDESC="Reference implementation of a Wayland compositor"
 PKG_PATCH_DIRS+="${DEVICE}"
 
@@ -79,4 +80,13 @@ icon=/usr/config/emulationstation/resources/window_icon_24.png
 EOF
   fi
 
+}
+
+
+unpack() {
+  declare -p | grep -F 'sources'
+  echo "${PKG_NAME}" "${PKG_UNPACK_DIR}"
+  mkdir -p "${PKG_BUILD}"
+  unzip "${SOURCES}/${PKG_NAME}/${PKG_SOURCE_NAME}" -d "${PKG_BUILD}"
+  mv "${PKG_BUILD}/weston-"*/* "${PKG_BUILD}"
 }
